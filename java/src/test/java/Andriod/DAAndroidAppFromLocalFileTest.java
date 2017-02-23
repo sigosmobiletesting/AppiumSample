@@ -34,7 +34,7 @@ public class DAAndroidAppFromLocalFileTest {
         //Parameters: mcd,
         //            application file (upload to mobile testing repository and install app to device
         //Response: true or false (success or fail)
-        boolean status = mobileTestingHelper.start(25056, new File("C:\\Users\\ssu\\Desktop\\Apps\\Android\\com.expensemanager.apk")); //"http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/gGDVekHrZkL-oLheOWFI4g/appium/wd/hub/";
+        boolean status = mobileTestingHelper.start(9326, new File("C:\\Users\\ssu\\Desktop\\Apps\\Android\\com.expensemanager.apk")); //"http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/gGDVekHrZkL-oLheOWFI4g/appium/wd/hub/";
 
         //If response is success all required information is available in mobileTestingHelper object
         //mobileTestingHelper.appiumUrl --> appium url to pass to appium driver

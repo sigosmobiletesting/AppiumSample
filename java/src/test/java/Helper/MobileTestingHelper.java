@@ -28,10 +28,10 @@ import java.security.cert.X509Certificate;
  */
 public class MobileTestingHelper {
 
-    String accessServerUrl = "http://ssubram1-lt73.corp.sigos.net:6232/resource/";
-    String userName = "admin@deviceanywhere.com";
+    String accessServerUrl = "http://kmtpoc1.deviceanywhere.com:6232/resource/";
+    String userName = "admin2@sigos.com";
     String password = "Harmony1";
-    int mcd = 25056;
+    int mcd = 9326;
     int muserId = -1;
 
     String jsonType = "application/json";
@@ -41,9 +41,9 @@ public class MobileTestingHelper {
     String ensembleSessionId = "";
     public String appiumUrl = "";
 
-    String appName = "com.expensemanager";
+    String appName = "test1";
     String appType = "ANDROID_APK";
-    String appVersion = "2.0.5";
+    String appVersion = "1";
 
     AddApplicationRestResponse applicationInfo;
 
