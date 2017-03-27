@@ -84,10 +84,26 @@ public class DARestAppiumExistingApplicationTest {
         //In Mobile testing environment always application is installed from our app upload tool (DA Studio or Web Studio or REST API
         capabilities.setCapability("bundleId", mobileTestingHelper.getApplicationInfo().bundleId);
 
-        //Intialize the driver, try to connect to the server (appium URL mentioned server)
-        //New appium session will be intialized (this will create Apium session) MobileTesting session will be issued when appium URL is generated itself)
-        driver =  new IOSDriver(new URL(appiumURL), capabilities);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        System.out.println("Testing application id - " + mobileTestingHelper.getApplicationInfo().applicationId + ", name - " + mobileTestingHelper.getApplicationInfo().appName);
+
+
+        try {
+            //Intialize the driver, try to connect to the server (appium URL mentioned server)
+            //New appium session will be intialized (this will create Apium session) MobileTesting session will be issued when appium URL is generated itself)
+            driver =  new IOSDriver(new URL(appiumURL), capabilities);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        }
+        catch (Exception exp) {
+            if(driver == null && mobileTestingHelper != null)     {
+                mobileTestingHelper.logoutSession();
+                Thread.sleep(30000);
+                System.out.println("Logoff user session");
+            }
+
+            throw exp;
+        }
+
+
 
     }
 

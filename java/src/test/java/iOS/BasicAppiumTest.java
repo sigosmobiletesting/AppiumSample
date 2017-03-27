@@ -33,7 +33,7 @@ public class BasicAppiumTest {
         System.out.println("Starting iOS Driver");
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
-        appiumURL = "http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/gGDVekHrZkL-oLheOWFI4g/appium/wd/hub/";
+        appiumURL = "http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/um4dW1x6rd3XGMyNhfUzYQ/appium/wd/hub/";
 
 
         startDriver(appiumURL);
@@ -54,13 +54,13 @@ public class BasicAppiumTest {
         capabilities.setCapability("platformName","iOS");
 
         //udid - optional
-        capabilities.setCapability(MobileCapabilityType.UDID, "a451b5e57d3510b45ef15ad710fa4f0245a22cd0");
+       // capabilities.setCapability(MobileCapabilityType.UDID, "a451b5e57d3510b45ef15ad710fa4f0245a22cd0");
 
         //(app) or (bundleId) one of them is MUST
         //if app is provided this should be (path to local machine script is running or any public URL of the app (should end with .ipa)
         //App need to be developer signed
         //In Mobile testing environment always application is installed from our app upload tool (DA Studio or Web Studio or REST API
-        capabilities.setCapability("bundleId", "com.kone.KitchenSink");
+        capabilities.setCapability("bundleId", "FGTracker"); //"com.kone.KitchenSink");
 
         //Intialize the driver, try to connect to the server (appium URL mentioned server)
         //New appium session will be intialized (this will create Apium session) MobileTesting session will be issued when appium URL is generated itself)

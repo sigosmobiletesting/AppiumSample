@@ -20,17 +20,31 @@ public class DARestAppiumFatory {
     @Factory
     public Object[] createInstances() {
 
-        //MobileTestingHelper mobileTestingHelper = new MobileTestingHelper();
-        Integer appId = 198;//mobileTestingHelper.uploadApplication(new File("C:\\Users\\ssu\\Desktop\\Apps\\Iphone\\KitchenSinkApp.ipa"));
+        MobileTestingHelper mobileTestingHelper = new MobileTestingHelper();
 
-        int numberOfRuns = 1;
+        Integer KSAppId = 211;//mobileTestingHelper.uploadApplication(new File("C:\\Users\\ssu\\Desktop\\Apps\\Iphone\\KitchenSinkApp.ipa"));
 
-        Object[] obj = new Object[numberOfRuns];
+        Integer TestAppId = 212;//mobileTestingHelper.uploadApplication(new File("C:\\Users\\ssu\\Desktop\\Apps\\Iphone\\testApp.ipa"));
 
-        for (int i = 0; i < numberOfRuns; i++) {
+        Integer RegionsAppId = 213;//mobileTestingHelper.uploadApplication(new File("C:\\Users\\ssu\\Desktop\\Apps\\Iphone\\Regions.ipa"));
 
-            obj[i] = new DARestAppiumExistingApplicationTest(appId);
+        int numberOfRuns = 3;
+
+        Object[] obj = new Object[numberOfRuns * 3];
+
+        for (int i = 0; i < numberOfRuns; i = i + 3) {
+
+            obj[i] = new DARestAppiumExistingApplicationTest(KSAppId);
+            obj[i + 1] = new DARestAppiumExistingApplicationTest(TestAppId);
+            obj[i + 2] = new DARestAppiumExistingApplicationTest(RegionsAppId);
         }
+
+//        Object[] obj = new Object[numberOfRuns * 3];
+//
+//        for (int i = 0; i < numberOfRuns; i++) {
+//
+//            obj[i] = new DARestAppiumExistingApplicationTest(KSAppId);
+//        }
 
         return obj;
     }

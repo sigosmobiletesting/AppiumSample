@@ -29,7 +29,7 @@ import java.security.cert.X509Certificate;
 public class MobileTestingHelper {
 
     String accessServerUrl = "http://kmtpoc1.deviceanywhere.com:6232/resource/";
-    String userName = "admin@sigos.com";
+    String userName = "admin2@sigos.com";
     String password = "Harmony1";
     int mcd = 9326;
     int muserId = -1;
@@ -120,6 +120,8 @@ public class MobileTestingHelper {
         int appId = -1;
 
         String session = createKeyNoteSession();
+
+        this.applicationInfo = new AddApplicationRestResponse();
 
         if(session != null) {
             uploadApplication(appFile, null);
