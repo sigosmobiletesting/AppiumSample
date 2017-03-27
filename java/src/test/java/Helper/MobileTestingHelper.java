@@ -29,7 +29,7 @@ import java.security.cert.X509Certificate;
 public class MobileTestingHelper {
 
     String accessServerUrl = "http://kmtpoc1.deviceanywhere.com:6232/resource/";
-    String userName = "admin2@sigos.com";
+    String userName = "admin@sigos.com";
     String password = "Harmony1";
     int mcd = 9326;
     int muserId = -1;
@@ -94,7 +94,16 @@ public class MobileTestingHelper {
 
         mcd = imcd;
 
-        return startProcess(appFile, null);
+        return startProcess(appFile, null, -1);
+
+    }
+
+    //Start mobile testing with local file
+    public boolean start(int imcd, int applicationId) {
+
+        mcd = imcd;
+
+        return startProcess(null, null, applicationId);
 
     }
 
@@ -103,11 +112,24 @@ public class MobileTestingHelper {
 
         mcd = imcd;
 
-        return startProcess(null, fileUrl);
+        return startProcess(null, fileUrl, -1);
 
     }
 
-    private boolean startProcess(File appFile, String fileUrl) {
+    public int uploadApplication(File appFile) {
+        int appId = -1;
+
+        String session = createKeyNoteSession();
+
+        if(session != null) {
+            uploadApplication(appFile, null);
+            appId = this.applicationInfo.applicationId;
+        }
+
+        return  appId;
+    }
+
+    private boolean startProcess(File appFile, String fileUrl, int applicationId) {
 
         boolean status = false;
 
@@ -127,10 +149,21 @@ public class MobileTestingHelper {
 
         if(appFile != null)
           System.out.println("Uploading application - " + appFile.getName());
-        else
+        else if(fileUrl != null && !fileUrl.isEmpty())
            System.out.println("Uploading application - " + fileUrl);
+        else {
+            System.out.println("getting application info  - " + applicationId);
+        }
 
-        boolean isUploadSuccess = uploadApplication(appFile, fileUrl);
+        boolean isUploadSuccess = false;
+
+
+        if(applicationId > 0) {
+            isUploadSuccess = getApplicationInformation(applicationId);
+        }
+        else {
+            isUploadSuccess = uploadApplication(appFile, fileUrl);
+        }
 
         if(isUploadSuccess) {
 
@@ -307,6 +340,34 @@ public class MobileTestingHelper {
             e.printStackTrace();
             return false;
         }
+
+    }
+
+    private boolean getApplicationInformation(int applicationId) {
+
+        boolean isAppInfoReceived = false;
+
+        String url = accessServerUrl + "applications/getByApplicationID/" + applicationId;
+
+        applicationInfo = new AddApplicationRestResponse();
+
+        JsonNode resultNode = restRequest(url, "GET", null, jsonType, null);
+
+        applicationInfo.appType = resultNode.get("applicationDescriptor").get(0).get("applicationType").textValue();
+        applicationInfo.appName = resultNode.get("applicationDescriptor").get(0).get("applicationName").textValue();
+        applicationInfo.appVersion = resultNode.get("applicationDescriptor").get(0).get("applicationVersion").textValue();
+        applicationInfo.appPackage = resultNode.get("applicationDescriptor").get(0).get("applicationPackage").textValue();
+        applicationInfo.appActivity = resultNode.get("applicationDescriptor").get(0).get("applicationActivity").textValue();
+        applicationInfo.bundleId = resultNode.get("applicationDescriptor").get(0).get("applicationBundleId").textValue();
+        applicationInfo.applicationId = applicationId;
+
+        if(applicationInfo != null && applicationInfo.applicationId > 0) {
+            isAppInfoReceived = true;
+        }
+        else
+            isAppInfoReceived = false;
+
+        return  isAppInfoReceived;
 
     }
 
