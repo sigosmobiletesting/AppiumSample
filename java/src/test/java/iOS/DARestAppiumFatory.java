@@ -6,6 +6,8 @@ import org.testng.annotations.Factory;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
@@ -30,23 +32,16 @@ public class DARestAppiumFatory {
 
         int numberOfRuns = 3;
 
-        Object[] obj = new Object[numberOfRuns * 3];
+        List<Object> objList = new ArrayList<Object>();
 
-        for (int i = 0; i < numberOfRuns; i = i + 3) {
+        for (int i = 0; i < numberOfRuns; i++) {
 
-            obj[i] = new DARestAppiumExistingApplicationTest(KSAppId);
-            obj[i + 1] = new DARestAppiumExistingApplicationTest(TestAppId);
-            obj[i + 2] = new DARestAppiumExistingApplicationTest(RegionsAppId);
+            objList.add(new DARestAppiumExistingApplicationTest(KSAppId));
+            objList.add(new DARestAppiumExistingApplicationTest(TestAppId));
+            objList.add(new DARestAppiumExistingApplicationTest(RegionsAppId));
         }
 
-//        Object[] obj = new Object[numberOfRuns * 3];
-//
-//        for (int i = 0; i < numberOfRuns; i++) {
-//
-//            obj[i] = new DARestAppiumExistingApplicationTest(KSAppId);
-//        }
-
-        return obj;
+        return objList.toArray();
     }
 
 }
