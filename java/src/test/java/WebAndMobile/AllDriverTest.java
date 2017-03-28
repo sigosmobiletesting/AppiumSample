@@ -30,6 +30,11 @@ public class AllDriverTest {
         this.automationType = _testType;
     }
 
+    public AllDriverTest(String _testType, String _appiumUrl) {
+        this.automationType = _testType;
+        this.appiumURL = _appiumUrl;
+    }
+
 
     @BeforeClass
     //Executed once for all the script in the class
@@ -37,7 +42,7 @@ public class AllDriverTest {
 
 
         if(automationType.equalsIgnoreCase("android") || automationType.equalsIgnoreCase("Default test name")) {
-            startAndroidDriver();
+            startAndroidDriver(this.appiumURL);
         }
         else if(automationType.equalsIgnoreCase("chrome")) {
             startChromeDriver();
@@ -59,13 +64,13 @@ public class AllDriverTest {
 
     }
 
-    private void startAndroidDriver() throws Exception {
+    private void startAndroidDriver(String appiumURL) throws Exception {
 
         System.out.println("Starting Android Driver");
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
         //http://127.0.0.1:4723/wd/hub/
-        appiumURL = "http://10.120.22.160:80/da/ensemble/device/ce67deba-d92d-480d-8f09-29d785ac1e0c/9340/web/appium/wd/hub/";
+        //appiumURL = "http://10.120.22.160:80/da/ensemble/device/ce67deba-d92d-480d-8f09-29d785ac1e0c/9340/web/appium/wd/hub/";
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
