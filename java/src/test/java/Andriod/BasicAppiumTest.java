@@ -2,11 +2,11 @@ package Andriod;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +24,7 @@ public class BasicAppiumTest {
     private AppiumDriver driver;
 
 
-    @Before
+    @BeforeClass
     //Executed once for all the script in the class
     public void setUp() throws Exception {
 
@@ -98,7 +98,7 @@ public class BasicAppiumTest {
         assertTrue(true);
     }
 
-    @After
+    @AfterClass
     //All the script execution is done, have to quit the driver to delete the session from the appium server
     public void tearDown() throws Exception {
 
