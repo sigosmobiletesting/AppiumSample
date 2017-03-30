@@ -1,6 +1,6 @@
 package iOS;
 
-import Helper.MobileTestingHelper;
+import helper.MobileTestingHelper;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -9,7 +9,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.io.File;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
