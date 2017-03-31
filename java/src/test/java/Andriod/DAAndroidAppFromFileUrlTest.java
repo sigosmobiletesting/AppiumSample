@@ -1,6 +1,6 @@
 package Andriod;
 
-import Helper.MobileTestingHelper;
+import helper.MobileTestingHelper;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import java.io.File;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 

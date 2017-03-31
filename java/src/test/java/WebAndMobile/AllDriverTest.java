@@ -1,8 +1,6 @@
-package WebAndMobile;
+package webAndMobile;
 
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -15,7 +13,6 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
-import static org.testng.Assert.*;
 
 /**
  * Created by ssu on 3/28/2017.
@@ -54,7 +51,7 @@ public class AllDriverTest {
         System.out.println("Starting Desktop Chrome Driver");
 
         File currentDirectory = new File(new File(".").getAbsolutePath());
-        String path = currentDirectory.getCanonicalPath() + "\\src\\test\\java\\WebAndMobile\\chromedriver.exe";
+        String path = currentDirectory.getCanonicalPath() + "\\src\\test\\java\\webAndMobile\\chromedriver.exe";
 
         System.setProperty("webdriver.chrome.driver", path);
 

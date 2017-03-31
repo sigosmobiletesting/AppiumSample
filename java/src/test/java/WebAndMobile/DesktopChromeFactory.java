@@ -1,4 +1,4 @@
-package WebAndMobile;
+package webAndMobile;
 import org.testng.annotations.Factory;
 
 import java.util.ArrayList;
