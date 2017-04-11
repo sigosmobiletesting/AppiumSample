@@ -41,7 +41,7 @@ public class PlayStoreAppInstallTest {
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
         //http://127.0.0.1:4723/wd/hub/
-        appiumURL = "http://SFO-AMP-DEM-105.deviceanywhere.com:80/da/ensemble/device/XwTmSP5FYgNmp5MfeA_wmQ/appium/wd/hub/";
+        appiumURL = "http://10.120.100.13:80/da/ensemble/device/89b1b44e-a7bd-4ad5-a676-4300ff3f9c18/30065/web/appium/wd/hub/";
 
 
         startDriver(appiumURL);
