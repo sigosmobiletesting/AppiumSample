@@ -18,8 +18,8 @@ import java.security.cert.X509Certificate;
  */
 public class MobileTestingHelper {
 
-    String accessServerUrl = "http://kmtpoc1.deviceanywhere.com:6232/resource/";
-    String userName = "admin2@sigos.com";
+    String accessServerUrl = "https://svtceas01.deviceanywhere.com:6232/";
+    String userName = "kdasupport2@ftfcu.com";
     String password = "Harmony1";
     int mcd = 9326;
     int muserId = -1;
@@ -384,7 +384,12 @@ public class MobileTestingHelper {
                 return true;
             }
             else {
-                return false;
+                String reason = resultNode.get("reason").textValue();
+
+                if(reason.equalsIgnoreCase(""))
+                    return true;
+                else
+                    return false;
             }
 
         }
