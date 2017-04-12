@@ -20,21 +20,14 @@ public class DARestAppiumFatory {
 
         MobileTestingHelper mobileTestingHelper = new MobileTestingHelper();
 
-        Integer KSAppId = 211;//mobileTestingHelper.uploadApplication(new File("C:\\Users\\ssu\\Desktop\\Apps\\Iphone\\KitchenSinkApp.ipa"));
-
-        Integer TestAppId = 212;//mobileTestingHelper.uploadApplication(new File("C:\\Users\\ssu\\Desktop\\Apps\\Iphone\\testApp.ipa"));
-
-        Integer RegionsAppId = 213;//mobileTestingHelper.uploadApplication(new File("C:\\Users\\ssu\\Desktop\\Apps\\Iphone\\Regions.ipa"));
+        Integer applicationId = 211;//mobileTestingHelper.uploadApplication(new File("C:\\Users\\ssu\\Desktop\\Apps\\Iphone\\KitchenSinkApp.ipa"));
 
         int numberOfRuns = 3;
 
         List<Object> objList = new ArrayList<Object>();
 
         for (int i = 0; i < numberOfRuns; i++) {
-
-            objList.add(new DARestAppiumExistingApplicationTest(KSAppId));
-            objList.add(new DARestAppiumExistingApplicationTest(TestAppId));
-            objList.add(new DARestAppiumExistingApplicationTest(RegionsAppId));
+            objList.add(new DARestAppiumExistingApplicationTest(applicationId));
         }
 
         return objList.toArray();

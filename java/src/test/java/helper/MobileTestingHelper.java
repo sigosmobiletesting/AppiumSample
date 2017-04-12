@@ -18,9 +18,9 @@ import java.security.cert.X509Certificate;
  */
 public class MobileTestingHelper {
 
-    String accessServerUrl = "https://svtceas01.deviceanywhere.com:6232/";
-    String userName = "kdasupport2@ftfcu.com";
-    String password = "Harmony1";
+    String accessServerUrl = "https://access:6232/";
+    String userName = "username";
+    String password = "password";
     int mcd = 9326;
     int muserId = -1;
 
@@ -386,7 +386,7 @@ public class MobileTestingHelper {
             else {
                 String reason = resultNode.get("reason").textValue();
 
-                if(reason.equalsIgnoreCase(""))
+                if(reason == null || reason.equalsIgnoreCase(""))
                     return true;
                 else
                     return false;

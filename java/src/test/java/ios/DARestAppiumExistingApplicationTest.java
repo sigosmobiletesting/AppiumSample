@@ -4,6 +4,7 @@ import helper.MobileTestingHelper;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -24,7 +25,12 @@ public class DARestAppiumExistingApplicationTest {
     String appiumURL = null;
     private AppiumDriver driver;
     private MobileTestingHelper mobileTestingHelper;
+    Integer mcd = 9322;
     Integer applicationId = -1;
+
+    public DARestAppiumExistingApplicationTest() {
+        applicationId = -1; //update your existing applicationId here
+    }
 
     public DARestAppiumExistingApplicationTest(Integer appId){
         applicationId = appId;
@@ -44,7 +50,7 @@ public class DARestAppiumExistingApplicationTest {
         //            application file (upload to mobile testing repository and install app to device
         //Response: true or false (success or fail)
         System.out.println("for application -" + applicationId);
-        boolean status = mobileTestingHelper.start(9322, applicationId);
+        boolean status = mobileTestingHelper.start(mcd, applicationId);
 
         //If response is success all required information is available in mobileTestingHelper object
         //mobileTestingHelper.appiumUrl --> appium url to pass to appium driver
@@ -83,6 +89,10 @@ public class DARestAppiumExistingApplicationTest {
         //In Mobile testing environment always application is installed from our app upload tool (DA Studio or Web Studio or REST API
         capabilities.setCapability("bundleId", mobileTestingHelper.getApplicationInfo().bundleId);
 
+        //use automationName and xcodeConfigFile for iOS 10+
+        //capabilities.setCapability("automationName", "XCUITest");
+        //capabilities.setCapability("xcodeConfigFile", "/Users/mcit/Desktop/EnsembleBridge/config/da_certificate.xcconfig");
+
         System.out.println("Testing application id - " + mobileTestingHelper.getApplicationInfo().applicationId + ", name - " + mobileTestingHelper.getApplicationInfo().appName);
 
 
@@ -116,7 +126,44 @@ public class DARestAppiumExistingApplicationTest {
         try {
 
             if(driver != null) {
-                driver.removeApp(mobileTestingHelper.getApplicationInfo().bundleId);
+
+//                //START -- XcuPath iOS 10 + Script
+//                Thread.sleep(2000);
+//                driver.findElement(By.xpath("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[2]/XCUIElementTypeButton[2]")).click();
+//                Thread.sleep(1000);
+//                driver.findElement(By.xpath("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]/XCUIElementTypeStaticText[1]")).click();
+//                Thread.sleep(1000);
+//                driver.findElement(By.xpath("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[2]")).click();
+//                Thread.sleep(1000);
+//                //driver.findElement(By.xpath("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeTable[1]/XCUIElementTypeCell[1]")).click();
+//                //Thread.sleep(1000);
+//                //driver.findElement(By.xpath("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeOther[1]/XCUIElementTypeScrollView[1]/XCUIElementTypeButton[1]")).click();
+//                //Thread.sleep(1000);
+//                driver.findElement(By.xpath("//XCUIElementTypeApplication[1]/XCUIElementTypeWindow[1]/XCUIElementTypeOther[1]/XCUIElementTypeTabBar[1]/XCUIElementTypeButton[5]")).click();
+//                Thread.sleep(5000);
+//                //END -- of XcuPath iOS 10 + Script
+
+                //START -- iOS 9 Script
+
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIAButton[2]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATableView[1]/UIATableCell[1]/UIAStaticText[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIAScrollView[1]/UIATextField[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIAScrollView[1]/UIATextField[1]")).sendKeys("Keynote Systems");
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIAScrollView[2]/UIASecureTextField[1]")).sendKeys("Keynote Systems");
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIANavigationBar[1]/UIAButton[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIANavigationBar[1]/UIAButton[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIANavigationBar[1]/UIAButton[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIANavigationBar[1]/UIAButton[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATableView[1]/UIATableCell[2]/UIAStaticText[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIANavigationBar[1]/UIAButton[1]")).click();
+        driver.findElement(By.xpath("//UIAApplication[1]/UIAWindow[2]/UIAScrollView[1]/UIATableView[1]/UIATableCell[3]/UIAStaticText[1]")).click();
+
+                //END -- iOS 9 Script
+
+                //driver.removeApp(mobileTestingHelper.getApplicationInfo().bundleId);
                 assertTrue(true);
             }
             else {
@@ -137,19 +184,19 @@ public class DARestAppiumExistingApplicationTest {
     public void tearDown() throws Exception {
 
         //driver.closeApp();
+
+        if(mobileTestingHelper != null)     {
+            mobileTestingHelper.logoutSession();
+            Thread.sleep(30000);
+            System.out.println("Logoff user session");
+        }
+
         try {
             if(driver != null)
                 driver.quit();
         }
         catch (Exception exp) {
             System.out.println("driver quit exception, because of app uninstall via Appium");
-        }
-
-
-        if(mobileTestingHelper != null)     {
-            mobileTestingHelper.logoutSession();
-            Thread.sleep(30000);
-            System.out.println("Logoff user session");
         }
 
     }
