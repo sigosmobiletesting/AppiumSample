@@ -26,7 +26,7 @@ public class DARestAppiumApplicationFromFileTest {
     String appiumURL = null;
     private AppiumDriver driver;
     private MobileTestingHelper mobileTestingHelper;
-    Integer mcd = 9322;
+    Integer mcd = 30056;
     Integer applicationId = -1;
 
 
@@ -42,11 +42,11 @@ public class DARestAppiumApplicationFromFileTest {
         //Parameters: mcd,
         //            application file (upload to mobile testing repository and install app to device
         //Response: true or false (success or fail)
-        boolean status = mobileTestingHelper.start(mcd, new File("C:\\Users\\ssu\\Desktop\\Apps\\Android\\com.expensemanager.ipa")); //"http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/gGDVekHrZkL-oLheOWFI4g/appium/wd/hub/";
+        boolean status = mobileTestingHelper.start(mcd, new File("C:\\Projects\\Apps\\KitchenSinkApp.ipa")); //"http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/gGDVekHrZkL-oLheOWFI4g/appium/wd/hub/";
 
         //If response is success all required information is available in mobileTestingHelper object
         //mobileTestingHelper.appiumUrl --> appium url to pass to appium driver
-        //ANDROID:
+        //IOS:
         //mobileTestingHelper.getApplicationInfo().appPackage --> application package to for Appium DesiredCapabilities appPackage
         //mobileTestingHelper.getApplicationInfo().appActivity --> application package to for Appium DesiredCapabilities appActivity
         //ios
@@ -54,10 +54,10 @@ public class DARestAppiumApplicationFromFileTest {
 
         if(status) {
             startDriver(mobileTestingHelper.appiumUrl);
-            System.out.println("Started ANDROID Driver");
+            System.out.println("Started IOS Driver");
         }
         else {
-            System.out.println("ANDROID Driver Start Failed");
+            System.out.println("IOS Driver Start Failed");
         }
 
         if(status) {
@@ -117,7 +117,7 @@ public class DARestAppiumApplicationFromFileTest {
     }
 
     @Test
-    //At this point Android driver is initialized fine and communication with the device is established
+    //At this point IOS driver is initialized fine and communication with the device is established
     //Script will be executed accordingly
     public void executeScript() throws Exception {
 

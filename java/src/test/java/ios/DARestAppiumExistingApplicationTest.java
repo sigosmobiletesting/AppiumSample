@@ -25,11 +25,11 @@ public class DARestAppiumExistingApplicationTest {
     String appiumURL = null;
     private AppiumDriver driver;
     private MobileTestingHelper mobileTestingHelper;
-    Integer mcd = 9322;
+    Integer mcd = 30056;
     Integer applicationId = -1;
 
     public DARestAppiumExistingApplicationTest() {
-        applicationId = -1; //update your existing applicationId here
+        applicationId = 18889; //update your existing applicationId here
     }
 
     public DARestAppiumExistingApplicationTest(Integer appId){
@@ -61,6 +61,7 @@ public class DARestAppiumExistingApplicationTest {
         //mobileTestingHelper.getApplicationInfo().bundleId --> application package to for Appium DesiredCapabilities bundleId
 
         if(status) {
+        	Thread.sleep(5000);
             startDriver(mobileTestingHelper.appiumUrl);
             System.out.println("Started ios Driver");
         }
@@ -126,6 +127,8 @@ public class DARestAppiumExistingApplicationTest {
         try {
 
             if(driver != null) {
+            	
+            	Thread.sleep(5000);
 
 //                //START -- XcuPath iOS 10 + Script
 //                Thread.sleep(2000);
