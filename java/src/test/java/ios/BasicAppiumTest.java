@@ -31,7 +31,7 @@ public class BasicAppiumTest {
         System.out.println("Starting ios Driver");
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
-        appiumURL = "http://10.120.101.112:4723/wd/hub/";
+        appiumURL = "http://dellswmte.deviceanywhere.com/appium/6c837049-e07b-4d9e-afa5-2e7fe0f890e8/wd/hub/";
         //appiumURL = "http://172.20.122.69:4723/wd/hub/";//"http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/um4dW1x6rd3XGMyNhfUzYQ/appium/wd/hub/";
 
 
@@ -48,7 +48,7 @@ public class BasicAppiumTest {
         //deviceName - MUST
         capabilities.setCapability("deviceName","Apple iPhone 6");
         //platformVersion - MUST
-        capabilities.setCapability("platformVersion", "10.1");
+        capabilities.setCapability("platformVersion", "10.2.1");
         //platformName - MUST
         capabilities.setCapability("platformName", "ios");
 
@@ -57,13 +57,13 @@ public class BasicAppiumTest {
 
         //use automationName and xcodeConfigFile for iOS 10+
         capabilities.setCapability("automationName", "XCUITest");
-        capabilities.setCapability("xcodeConfigFile", "/Users/mcit/Desktop/EnsembleBridge/config/da_certificate.xcconfig");
+        //capabilities.setCapability("xcodeConfigFile", "/Users/mcit/Desktop/EnsembleBridge/config/da_certificate.xcconfig");
 
         //(app) or (bundleId) one of them is MUST
         //if app is provided this should be (path to local machine script is running or any public URL of the app (should end with .ipa)
         //App need to be developer signed
         //In Mobile testing environment always application is installed from our app upload tool (DA Studio or Web Studio or REST API
-        capabilities.setCapability("bundleId", "com.kone.KitchenSink");
+        capabilities.setCapability("bundleId", "com.secureworks.mobile.mobileportal.pilot");
 
         //Intialize the driver, try to connect to the server (appium URL mentioned server)
         //New appium session will be intialized (this will create Apium session) MobileTesting session will be issued when appium URL is generated itself)

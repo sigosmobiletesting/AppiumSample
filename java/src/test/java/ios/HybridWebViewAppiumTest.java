@@ -1,12 +1,12 @@
-package andriod;
+package ios;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
 import java.net.URL;
 import java.util.Set;
@@ -19,26 +19,26 @@ import static org.junit.Assert.assertTrue;
  * Basic appium test to connect with manually inject the appium URL
  * Direct appium Url or appium manual URL started from mobile testing
  */
-public class AppiumChromeTest {
-    
+public class HybridWebViewAppiumTest {
+
     String appiumURL = null;
     private AppiumDriver driver;
 
 
-    @BeforeClass
+    @Before
     //Executed once for all the script in the class
     public void setUp() throws Exception {
 
-        System.out.println("Starting Android Driver");
+        System.out.println("Starting ios Driver");
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
-        //http://127.0.0.1:4723/wd/hub/
-        appiumURL = "http://SFO-AMP-VSA-V03.deviceanywhere.com:80/da/ensemble/device/p7Ym4OHD4Zp2XnnToswecg/appium/wd/hub/";
+        appiumURL = "";
+        //appiumURL = "";
 
 
         startDriver(appiumURL);
 
-        System.out.println("Started Android Driver");
+        System.out.println("Started ios Driver");
 
     }
 
@@ -47,22 +47,31 @@ public class AppiumChromeTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         //deviceName - MUST
-        capabilities.setCapability("deviceName","Samsung Galaxy 5");
+        capabilities.setCapability("deviceName","Apple iPhone 6");
         //platformVersion - MUST
-        capabilities.setCapability("platformVersion", "4.4.4");
+        capabilities.setCapability("platformVersion", "10.2.1");
         //platformName - MUST
-        capabilities.setCapability("platformName","Android");
+        capabilities.setCapability("platformName", "ios");
+
+        //WebKitProxy
+        capabilities.setCapability("startIWDP", "true");
 
         //udid - optional
-        //capabilities.setCapability("udid", "76b7d07b");
+       // capabilities.setCapability(MobileCapabilityType.UDID, "a451b5e57d3510b45ef15ad710fa4f0245a22cd0");
 
-        //platformName - MUST
-        capabilities.setCapability("browserName","Chrome");
+        //use automationName and xcodeConfigFile for iOS 10+
+        capabilities.setCapability("automationName", "XCUITest");
+        //capabilities.setCapability("xcodeConfigFile", "/Users/mcit/Desktop/EnsembleBridge/config/da_certificate.xcconfig");
 
+        //(app) or (bundleId) one of them is MUST
+        //if app is provided this should be (path to local machine script is running or any public URL of the app (should end with .ipa)
+        //App need to be developer signed
+        //In Mobile testing environment always application is installed from our app upload tool (DA Studio or Web Studio or REST API
+        capabilities.setCapability("bundleId", "");
 
         //Intialize the driver, try to connect to the server (appium URL mentioned server)
         //New appium session will be intialized (this will create Apium session) MobileTesting session will be issued when appium URL is generated itself)
-        driver = new AndroidDriver(new URL(appiumURL), capabilities);
+        driver =  new IOSDriver(new URL(appiumURL), capabilities);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
     }
@@ -72,34 +81,16 @@ public class AppiumChromeTest {
     //Script will be executed accordingly
     public void executeScript() throws Exception {
 
-        Thread.sleep(2000);
-        //driver.findElement(By.name("Add New Expense")).click();
-        driver.get("http://www.google.com");
+       Set<String> handlers = driver.getContextHandles();
 
-        Set<String> contextNames = driver.getContextHandles();
-        for(String contextname: contextNames){
-            System.out.println(contextname);
+        if(handlers.size() > 1) {
+
         }
 
-        System.out.println(driver.getContext());
-
-        //driver.switchTo().window("CHROMIUM");
-
-        System.out.println(driver.getPageSource());
-
-
-
-        //driver.se
-
-        Thread.sleep(3000);
-
-        driver.navigate().back();
-
-        assertTrue(true);
         assertTrue(true);
     }
 
-    @AfterClass
+    @After
     //All the script execution is done, have to quit the driver to delete the session from the appium server
     public void tearDown() throws Exception {
 

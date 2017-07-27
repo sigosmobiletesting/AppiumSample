@@ -1,8 +1,8 @@
-package andriod;
+package ios;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  * Basic appium test to connect with manually inject the appium URL
  * Direct appium Url or appium manual URL started from mobile testing
  */
-public class AppiumChromeTest {
+public class AppiumSafariTest {
     
     String appiumURL = null;
     private AppiumDriver driver;
@@ -29,16 +29,16 @@ public class AppiumChromeTest {
     //Executed once for all the script in the class
     public void setUp() throws Exception {
 
-        System.out.println("Starting Android Driver");
+        System.out.println("Starting iOS Driver");
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
         //http://127.0.0.1:4723/wd/hub/
-        appiumURL = "http://SFO-AMP-VSA-V03.deviceanywhere.com:80/da/ensemble/device/p7Ym4OHD4Zp2XnnToswecg/appium/wd/hub/";
+        appiumURL = "";
 
 
         startDriver(appiumURL);
 
-        System.out.println("Started Android Driver");
+        System.out.println("Started iOS Driver");
 
     }
 
@@ -47,22 +47,24 @@ public class AppiumChromeTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         //deviceName - MUST
-        capabilities.setCapability("deviceName","Samsung Galaxy 5");
+        capabilities.setCapability("deviceName","Apple iPhone 5S");
         //platformVersion - MUST
-        capabilities.setCapability("platformVersion", "4.4.4");
+        capabilities.setCapability("platformVersion", "10.2");
         //platformName - MUST
-        capabilities.setCapability("platformName","Android");
+        capabilities.setCapability("platformName", "ios");
+
+        capabilities.setCapability("automationName", "XCUITest");
 
         //udid - optional
         //capabilities.setCapability("udid", "76b7d07b");
 
         //platformName - MUST
-        capabilities.setCapability("browserName","Chrome");
+        capabilities.setCapability("browserName","Safari");
 
 
         //Intialize the driver, try to connect to the server (appium URL mentioned server)
         //New appium session will be intialized (this will create Apium session) MobileTesting session will be issued when appium URL is generated itself)
-        driver = new AndroidDriver(new URL(appiumURL), capabilities);
+        driver = new IOSDriver(new URL(appiumURL), capabilities);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
     }
