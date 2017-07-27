@@ -33,7 +33,7 @@ public class HybridWebViewAppiumTest {
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
         appiumURL = "";
-        //appiumURL = "";
+        //appiumURL = "http://172.20.122.69:4723/wd/hub/";
 
 
         startDriver(appiumURL);
@@ -81,9 +81,16 @@ public class HybridWebViewAppiumTest {
     //Script will be executed accordingly
     public void executeScript() throws Exception {
 
-       Set<String> handlers = driver.getContextHandles();
+       Set<String> handles = driver.getContextHandles();
 
-        if(handlers.size() > 1) {
+        if(handles.size() > 1) {
+
+            System.out.println("Context Handles");
+
+            for (String handle : handles) {
+                System.out.println(handle);
+            }
+
 
         }
 
