@@ -32,8 +32,8 @@ public class HybridWebViewAppiumTest {
         System.out.println("Starting ios Driver");
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
-        appiumURL = "";
-        //appiumURL = "http://172.20.122.69:4723/wd/hub/";
+        appiumURL = "http://SFOAMP-DSW9438.deviceanywhere.com:80/da/ensemble/device/-1biL3cF-tP5EQO96ANjJg/appium/wd/hub/";
+        //appiumURL = "http://172.20.122.69:4723/wd/hub/";//"http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/um4dW1x6rd3XGMyNhfUzYQ/appium/wd/hub/";
 
 
         startDriver(appiumURL);
@@ -67,7 +67,7 @@ public class HybridWebViewAppiumTest {
         //if app is provided this should be (path to local machine script is running or any public URL of the app (should end with .ipa)
         //App need to be developer signed
         //In Mobile testing environment always application is installed from our app upload tool (DA Studio or Web Studio or REST API
-        capabilities.setCapability("bundleId", "");
+        capabilities.setCapability("bundleId", "com.secureworks.mobile.mobileportal.pilot");
 
         //Intialize the driver, try to connect to the server (appium URL mentioned server)
         //New appium session will be intialized (this will create Apium session) MobileTesting session will be issued when appium URL is generated itself)

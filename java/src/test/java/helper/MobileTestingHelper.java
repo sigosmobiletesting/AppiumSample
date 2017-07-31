@@ -18,7 +18,7 @@ import java.security.cert.X509Certificate;
  */
 public class MobileTestingHelper {
 
-    String accessServerUrl = "https://access:6232/";
+    String accessServerUrl = "http://visa.deviceanywhere.com:6232/";
     String userName = "username";
     String password = "password";
     int mcd = 9326;
