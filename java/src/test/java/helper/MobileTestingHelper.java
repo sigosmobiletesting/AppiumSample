@@ -5,11 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.json.simple.JSONObject;
 
 import javax.net.ssl.*;
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 
@@ -18,10 +21,10 @@ import java.security.cert.X509Certificate;
  */
 public class MobileTestingHelper {
 
-    String accessServerUrl = "http://visa.deviceanywhere.com:6232/";
-    String userName = "username";
+    String accessServerUrl = "http://access.sigos.net:6232/resource/";
+    String userName = "user@user.com";
     String password = "password";
-    int mcd = 9326;
+    int mcd = 25060;
     int muserId = -1;
 
     String jsonType = "application/json";
@@ -37,6 +40,8 @@ public class MobileTestingHelper {
 
     AddApplicationRestResponse applicationInfo;
 
+    Proxy proxy;
+
     public AddApplicationRestResponse getApplicationInfo() {
         return applicationInfo;
     }
@@ -44,6 +49,11 @@ public class MobileTestingHelper {
 
     public  MobileTestingHelper() {
         applicationInfo = new AddApplicationRestResponse();
+    }
+
+    public  MobileTestingHelper(String proxyIp, int proxyPort) {
+        applicationInfo = new AddApplicationRestResponse();
+        proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyIp, proxyPort));
     }
 
     public String startAndGetAppiumUrl() {
@@ -106,6 +116,15 @@ public class MobileTestingHelper {
 
     }
 
+    //Start mobile testing with local file
+    public boolean startForBrowser(int imcd) {
+
+        mcd = imcd;
+
+        return startProcess(null, null, -1);
+
+    }
+
     public int uploadApplication(File appFile) {
         int appId = -1;
 
@@ -135,62 +154,85 @@ public class MobileTestingHelper {
         if(sessionID == null || sessionID.isEmpty()) {
             System.out.println("Problem logging in to Mobile Testing, please verify UserName, Password or Access Server Url");
         }
-
-        System.out.println("Session Created : " + sessionID );
-        System.out.println("Session UserId: " + muserId );
-
-        if(appFile != null)
-          System.out.println("Uploading application - " + appFile.getName());
-        else if(fileUrl != null && !fileUrl.isEmpty())
-           System.out.println("Uploading application - " + fileUrl);
         else {
-            System.out.println("getting application info  - " + applicationId);
-        }
+            System.out.println("Session Created : " + sessionID );
+            System.out.println("Session UserId: " + muserId );
 
-        boolean isUploadSuccess = false;
-
-
-        if(applicationId > 0) {
-            isUploadSuccess = getApplicationInformation(applicationId);
-        }
-        else {
-            isUploadSuccess = uploadApplication(appFile, fileUrl);
-        }
-
-        if(isUploadSuccess) {
-
-            System.out.println("Uploading application Success applicationId: " +  applicationInfo.applicationId);
-
-            // lock device
-            System.out.println("Locking the Device" );
-
-            ensembleSessionId = lockDevice();
-
-            if(ensembleSessionId == null || ensembleSessionId.isEmpty()) {
-                System.out.println("Problem logging in to Mobile Testing, please verify UserName, Password or Access Server Url");
+            if(appFile != null)
+                System.out.println("Uploading application - " + appFile.getName());
+            else if(fileUrl != null && !fileUrl.isEmpty())
+                System.out.println("Uploading application - " + fileUrl);
+            else if (applicationId > 0) {
+                System.out.println("getting application info  - " + applicationId);
             }
             else {
-                System.out.println("Ensemble URL " + ensembleServerURL);
-                System.out.println("Ensemble sessionID ::" + ensembleSessionId);
+                System.out.println("Starting session for web test");
+            }
 
-                System.out.println("installing application - " + applicationInfo.applicationId);
-                boolean installSuccess = installApplication(applicationInfo.applicationId);
+            boolean isUploadSuccess = false;
+            boolean isForWebTest = false;
 
-                if(installSuccess) {
-                    System.out.println("installing application completed successfully- " + applicationInfo.applicationId);
 
-                    startAppiumServer();
+            if(applicationId > 0) {
+                isUploadSuccess = getApplicationInformation(applicationId);
+            }
+            else if(appFile != null || (fileUrl != null && !fileUrl.isEmpty()))  {
+                isUploadSuccess = uploadApplication(appFile, fileUrl);
+            }
+            else {
+                isForWebTest = true;
+            }
 
-                    System.out.println("Appium URL is " + appiumUrl);
-                    status = true;
+            if(isUploadSuccess || isForWebTest) {
+
+                if(isUploadSuccess)
+                    System.out.println("Uploading application Success applicationId: " +  applicationInfo.applicationId);
+
+                // lock device
+                System.out.println("Locking the Device" );
+
+                ensembleSessionId = lockDevice();
+
+                if(ensembleSessionId == null || ensembleSessionId.isEmpty()) {
+                    System.out.println("Problem logging in to Mobile Testing, please verify UserName, Password or Access Server Url");
                 }
                 else {
-                    System.out.println("App Install failed ");
+                    System.out.println("Ensemble URL " + ensembleServerURL);
+                    System.out.println("Ensemble sessionID ::" + ensembleSessionId);
+
+                    if(!isForWebTest)   {
+                        System.out.println("installing application - " + applicationInfo.applicationId);
+                        boolean installSuccess = installApplication(applicationInfo.applicationId);
+
+                        if(installSuccess) {
+                            System.out.println("installing application completed successfully- " + applicationInfo.applicationId);
+
+                            startAppiumServer();
+
+                            System.out.println("Appium URL is " + appiumUrl);
+                            status = true;
+                        }
+                        else {
+                            System.out.println("App Install failed ");
+                        }
+                    }
+                    else {
+                        startAppiumServer();
+
+                        System.out.println("Appium URL is " + appiumUrl);
+
+                        if(!StringUtils.isEmpty(appiumUrl) && appiumUrl != null)
+                            status = true;
+                    }
+
+
+
+
                 }
-
-
             }
         }
+
+
 
         return status;
     }
@@ -228,7 +270,7 @@ public class MobileTestingHelper {
             JSONObject cred   = new JSONObject();
             cred.put("sessionID", sessionID);
 
-            String url = accessServerUrl + "device/lock-device/" + mcd;
+            String url = accessServerUrl + "device/lock-device/" + mcd + "?zoomLevel=30";
 
             JsonNode node = restRequest(url, "POST", jsonType, jsonType, cred.toString());
 
@@ -255,7 +297,12 @@ public class MobileTestingHelper {
                 conn = getSecureConnection(u);
             }
             else {
-                conn = (HttpURLConnection) u.openConnection();
+                 if(proxy != null) {
+                    conn = (HttpURLConnection) u.openConnection(proxy);
+                }
+                else {
+                    conn = (HttpURLConnection) u.openConnection();
+                }
             }
 
             conn.setDoOutput(true);
@@ -275,7 +322,7 @@ public class MobileTestingHelper {
 
             AddApplicationRestRequest addApplicationRestRequest = new AddApplicationRestRequest();
 
-            addApplicationRestRequest.isEnableApp = true;
+            addApplicationRestRequest.isEnableApp = false;
             addApplicationRestRequest.isSignApp = true;
 
             if(file != null) {
@@ -526,7 +573,7 @@ public class MobileTestingHelper {
         }
     }
 
-    private JsonNode restRequest(String urlIN, String method, String contentType, String acceptType, String body)
+    public JsonNode restRequest(String urlIN, String method, String contentType, String acceptType, String body)
     {
         InputStream response = null;
         InputStream responseError = null;
@@ -539,7 +586,14 @@ public class MobileTestingHelper {
                 conn = getSecureConnection(url);//(HttpsURLConnection) url.openConnection();
             }
             else {
-                conn = (HttpURLConnection) new URL(urlIN).openConnection();
+
+                if(proxy != null) {
+                    conn = (HttpURLConnection) new URL(urlIN).openConnection(proxy);
+                }
+                else {
+                    conn = (HttpURLConnection) new URL(urlIN).openConnection();
+                }
+
             }
 
             conn.setRequestMethod(method);
@@ -578,8 +632,8 @@ public class MobileTestingHelper {
 
             conn.disconnect();
         } catch (final Exception e) {
-            System.out.println("Errors occurred while attempting to load the URL...");
-            e.printStackTrace();
+            //System.out.println("Errors occurred while attempting to load the URL...");
+            //e.printStackTrace();
         }
 
         return result;
