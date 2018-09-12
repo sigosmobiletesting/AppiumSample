@@ -26,7 +26,7 @@ public class DARestAppiumApplicationFromFileTest {
     String appiumURL = null;
     private AppiumDriver driver;
     private MobileTestingHelper mobileTestingHelper;
-    Integer mcd = 30056;
+    Integer mcd = 30311;
     Integer applicationId = -1;
 
 
@@ -42,7 +42,7 @@ public class DARestAppiumApplicationFromFileTest {
         //Parameters: mcd,
         //            application file (upload to mobile testing repository and install app to device
         //Response: true or false (success or fail)
-        boolean status = mobileTestingHelper.start(mcd, new File("C:\\Projects\\Apps\\KitchenSinkApp.ipa")); //"http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/gGDVekHrZkL-oLheOWFI4g/appium/wd/hub/";
+        boolean status = mobileTestingHelper.start(mcd, new File("C:\\Users\\ssubram1\\Desktop\\Apps\\iphone\\dealogic\\Dealogic_debug.ipa")); //"http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/gGDVekHrZkL-oLheOWFI4g/appium/wd/hub/";
 
         //If response is success all required information is available in mobileTestingHelper object
         //mobileTestingHelper.appiumUrl --> appium url to pass to appium driver
@@ -76,12 +76,12 @@ public class DARestAppiumApplicationFromFileTest {
         //deviceName - MUST
         capabilities.setCapability("deviceName","Apple iPhone 6");
         //platformVersion - MUST
-        capabilities.setCapability("platformVersion", "9.3.2");
+        capabilities.setCapability("platformVersion", "11.2.1");
         //platformName - MUST
         capabilities.setCapability("platformName", "ios");
 
         //udid - optional
-        capabilities.setCapability(MobileCapabilityType.UDID, "a451b5e57d3510b45ef15ad710fa4f0245a22cd0");
+        //capabilities.setCapability(MobileCapabilityType.UDID, "a451b5e57d3510b45ef15ad710fa4f0245a22cd0");
 
         //(app) or (bundleId) one of them is MUST
         //if app is provided this should be (path to local machine script is running or any public URL of the app (should end with .ipa)
@@ -90,7 +90,7 @@ public class DARestAppiumApplicationFromFileTest {
         capabilities.setCapability("bundleId", mobileTestingHelper.getApplicationInfo().bundleId);
 
         //use automationName and xcodeConfigFile for iOS 10+
-        //capabilities.setCapability("automationName", "XCUITest");
+        capabilities.setCapability("automationName", "XCUITest");
         //capabilities.setCapability("xcodeConfigFile", "/Users/mcit/Desktop/EnsembleBridge/config/da_certificate.xcconfig");
 
         System.out.println("Testing application id - " + mobileTestingHelper.getApplicationInfo().applicationId + ", name - " + mobileTestingHelper.getApplicationInfo().appName);

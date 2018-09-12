@@ -33,7 +33,7 @@ public class AppiumChromeTest {
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
         //http://127.0.0.1:4723/wd/hub/
-        appiumURL = "http://SFO-AMP-VSA-P06.deviceanywhere.com:80/da/ensemble/device/_PYTZMdqiM8aAmKeIsd7og/appium/wd/hub/";
+        appiumURL = "http://SFO-AMP-TCE-005.deviceanywhere.com:80/da/ensemble/device/FnujUgrlby6uA-ew13nYCQ/appium/wd/hub/";
 
 
         startDriver(appiumURL);

@@ -1,8 +1,14 @@
 package ios;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.TapOptions;
+import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.internal.Locatable;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -33,8 +39,8 @@ public class AppiumSafariTest {
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
         //http://127.0.0.1:4723/wd/hub/
-        appiumURL = "http://172.20.122.28:6232/resource/device/appium/wd/hub/session";
-
+        //appiumURL = "http://172.20.122.28:6232/resource/device/appium/wd/hub/session";
+        appiumURL = "http://SFO-AMP-TCV-012.deviceanywhere.com:80/da/ensemble/device/oRQQX0syfVoRiAVlbtsceA/appium/wd/hub/";
 
         startDriver(appiumURL);
 
@@ -47,22 +53,27 @@ public class AppiumSafariTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         //deviceName - MUST
-        capabilities.setCapability("deviceName","Apple iPhone 5S");
+        capabilities.setCapability("deviceName","Apple iPhone 8");
         //platformVersion - MUST
-        capabilities.setCapability("platformVersion", "10.2");
+        capabilities.setCapability("platformVersion", "11.2.6");
         //platformName - MUST
-        capabilities.setCapability("platformName", "Android");
+        capabilities.setCapability("platformName", "ios");
 
         capabilities.setCapability("automationName", "XCUITest");
 
-        capabilities.setCapability("userName", "admin@visa.com");
-        capabilities.setCapability("password", "Harmony1");
-        capabilities.setCapability("udid", "c7cfd075ccc97406d956f839f0b8488809482976");
+        //capabilities.setCapability("userName", "admin@visa.com");
+        //capabilities.setCapability("password", "Harmony1");
+        //capabilities.setCapability("udid", "c7cfd075ccc97406d956f839f0b8488809482976");
 
 
 
         //udid - optional
-        //capabilities.setCapability("udid", "76b7d07b");
+//        capabilities.setCapability("udid", "eb60a1dd415904f6e1862db1614813e98801a09c");
+//        capabilities.setCapability("webDriverAgentUrl", "http://10.120.101.47:8100");
+        capabilities.setCapability("usePrebuiltWDA", true);
+        capabilities.setCapability("startIWDP", true);
+
+
 
         //platformName - MUST
         capabilities.setCapability("browserName","Safari");
@@ -82,7 +93,9 @@ public class AppiumSafariTest {
 
         Thread.sleep(2000);
         //driver.findElement(By.name("Add New Expense")).click();
-        driver.get("http://www.google.com");
+        driver.get("https://05-daq.str.progressivedirect.com/Slot1/dq/ApplicationStart.aspx?captureErrorLogs=&offering=CO&Product=AU&classType=&enableBlockerVisibility=&disableCache=&debug=&disableBundlingAndMinification=&enableThreadLockLogging=&enableInFlightTesting=&enablePacketErrorsDisplay=&enableDeviceId=&isMoveOutOfState=N&equityTransferAmount=&equityTransferDate=&moveOutOfStatePolicyNbr=&enableHVDFBrokerUseDoc=&Stubbing=&zipCode=80020&residency=&HQXSupportedBrowser=Y&ServiceOverrides=MobileDetect%3dMobileDetectForceAndroid%26QuoteAbandonment%3dNormal+Quote&ABTestOverrides=%26chat_in_quote_abtest%3d0505A%26cov_pkg_use_spss_abtest_model5%3d1992B");
+
+        Thread.sleep(3000);
 
         Set<String> contextNames = driver.getContextHandles();
         for(String contextname: contextNames){
@@ -91,19 +104,40 @@ public class AppiumSafariTest {
 
         System.out.println(driver.getContext());
 
-        //driver.switchTo().window("CHROMIUM");
+        Thread.sleep(5000);
 
-        System.out.println(driver.getPageSource());
+        WebElement elementFN =   driver.findElementById("NameAndAddressEdit_embedded_questions_list_FirstName");
+
+        //TouchAction touchAction = new TouchAction(driver);
+        //Point p = ((Locatable) elementFN).getCoordinates().onPage();
+        //driver.performTouchAction(touchAction.tap(PointOption.point(p.getX(), p.getY())));
 
 
+        elementFN.click();
 
-        //driver.se
+        Thread.sleep(3000);
+
+        elementFN.sendKeys("A1");
+
+        WebElement elementLN =   driver.findElementById("NameAndAddressEdit_embedded_questions_list_LastName");
+
+        elementLN.click();
+
+        //driver.performTouchAction(touchAction.tap(PointOption.point(elementLN.getLocation().getX(), elementLN.getLocation().getX())));
+
+        Thread.sleep(3000);
+
+
+        elementLN.sendKeys("Test");
+
+        Thread.sleep(3000);
+
+        driver.findElementById("next").click();
 
         Thread.sleep(3000);
 
         driver.navigate().back();
 
-        assertTrue(true);
         assertTrue(true);
     }
 

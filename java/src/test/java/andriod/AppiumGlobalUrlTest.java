@@ -33,7 +33,7 @@ public class AppiumGlobalUrlTest {
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
         //http://127.0.0.1:4723/wd/hub/
-
+        appiumURL = "http://visa.deviceanywhere.com:6232/resource/device/appium/wd/hub/";
 
 
         startDriver(appiumURL);
@@ -55,7 +55,9 @@ public class AppiumGlobalUrlTest {
 
         //capabilities.setCapability("automationName", "XCUITest");
 
-
+        capabilities.setCapability("userName", "admin@visa.com");
+        capabilities.setCapability("password", "Harmony1");
+        capabilities.setCapability("udid", "42d102d0");
 
 
 
@@ -91,7 +93,7 @@ public class AppiumGlobalUrlTest {
 
         //driver.switchTo().window("CHROMIUM");
 
-        System.out.println(driver.getPageSource());
+//        System.out.println(driver.getPageSource());
 
 
 

@@ -32,7 +32,7 @@ public class DARestAppiumTest {
         //Parameters: mcd,
         //            application file (upload to mobile testing repository and install app to device
         //Response: true or false (success or fail)
-        status = mobileTestingHelper.start(9322, new File("C:\\Users\\ssu\\Desktop\\Apps\\Iphone\\KitchenSinkApp.ipa"));
+        status = mobileTestingHelper.start(30362, new File("C:\\Users\\ssu\\Desktop\\Apps\\Iphone\\KitchenSinkApp.ipa"));
     }
 
     public int getApplicationId() {
