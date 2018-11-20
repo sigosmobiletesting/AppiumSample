@@ -3,6 +3,7 @@ package andriod;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -33,7 +34,7 @@ public class AppiumChromeTest {
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
         //http://127.0.0.1:4723/wd/hub/
-        appiumURL = "http://SFO-AMP-TCE-005.deviceanywhere.com:80/da/ensemble/device/FnujUgrlby6uA-ew13nYCQ/appium/wd/hub/";
+        appiumURL = "http://10.120.100.67:80/da/ensemble/device/RpWhveBmZH5ilTzw_r77Wg/appium/wd/hub/";
 
 
         startDriver(appiumURL);
@@ -74,7 +75,9 @@ public class AppiumChromeTest {
 
         Thread.sleep(2000);
         //driver.findElement(By.name("Add New Expense")).click();
-        driver.get("http://www.google.com");
+        driver.get("https://05-daq.str.progressivedirect.com/Slot1/dq/ApplicationStart.aspx?captureErrorLogs=&offering=CO&Product=AU&classType=&enableBlockerVisibility=&disableCache=&debug=&disableBundlingAndMinification=&enableThreadLockLogging=&enableInFlightTesting=&enablePacketErrorsDisplay=&enableDeviceId=&isMoveOutOfState=N&equityTransferAmount=&equityTransferDate=&moveOutOfStatePolicyNbr=&enableHVDFBrokerUseDoc=&Stubbing=&zipCode=80020&residency=&HQXSupportedBrowser=Y&ServiceOverrides=MobileDetect%3dMobileDetectForceAndroid%26QuoteAbandonment%3dNormal+Quote&ABTestOverrides=%26chat_in_quote_abtest%3d0505A%26cov_pkg_use_spss_abtest_model5%3d1992B");
+
+        Thread.sleep(3000);
 
         Set<String> contextNames = driver.getContextHandles();
         for(String contextname: contextNames){
@@ -83,19 +86,40 @@ public class AppiumChromeTest {
 
         System.out.println(driver.getContext());
 
-        //driver.switchTo().window("CHROMIUM");
+        Thread.sleep(5000);
 
-        System.out.println(driver.getPageSource());
+        WebElement elementFN =   driver.findElementById("NameAndAddressEdit_embedded_questions_list_FirstName");
+
+        //TouchAction touchAction = new TouchAction(driver);
+        //Point p = ((Locatable) elementFN).getCoordinates().onPage();
+        //driver.performTouchAction(touchAction.tap(PointOption.point(p.getX(), p.getY())));
 
 
-
-        //driver.se
+        elementFN.click();
 
         Thread.sleep(3000);
 
+        elementFN.sendKeys("A1");
+
+        WebElement elementLN =   driver.findElementById("NameAndAddressEdit_embedded_questions_list_LastName");
+
+        elementLN.click();
+
+        //driver.performTouchAction(touchAction.tap(PointOption.point(elementLN.getLocation().getX(), elementLN.getLocation().getX())));
+
+        Thread.sleep(3000);
+
+
+        elementLN.sendKeys("Test");
+
+        Thread.sleep(3000);
+
+        driver.findElementById("next").click();
+
+        Thread.sleep(30000);
+
         driver.navigate().back();
 
-        assertTrue(true);
         assertTrue(true);
     }
 

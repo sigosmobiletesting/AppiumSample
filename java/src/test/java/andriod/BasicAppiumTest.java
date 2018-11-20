@@ -32,7 +32,7 @@ public class BasicAppiumTest {
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
         //http://127.0.0.1:4723/wd/hub/
-        appiumURL = "http://SSUBRAM1-LT73.corp.sigos.net:8080/da/ensemble/device/63edbf19-1555-4b38-a6bb-0e7d9716d876/25030/web/appium/wd/hub/";
+        appiumURL = "http://10.120.100.67:80/da/ensemble/device/VXtb5Hn0xB9i9TcY2ooT6Q/appium/wd/hub/";
 
 
         startDriver(appiumURL);
@@ -58,8 +58,8 @@ public class BasicAppiumTest {
         //(app) or (appPackage and appActivity) one of them is MUST
         //if app is provided this should be (path to local machine script is running or any public URL of the app (should end with .apk)
         //In Mobile testing environment always application is installed from our app upload tool (DA Studio or Web Studio or REST API
-        capabilities.setCapability("appPackage", "com.expensemanager");
-        capabilities.setCapability("appActivity", "com.expensemanager.ExpenseManager");
+        capabilities.setCapability("appPackage", "com.keynote.keynotedemo");
+        capabilities.setCapability("appActivity", "com.keynote.keynotedemo.UserInfo");
         //capabilities.setCapability("app", "https://adminportal.keynote.com/app/536565.apk");
 
 
@@ -75,11 +75,11 @@ public class BasicAppiumTest {
     //Script will be executed accordingly
     public void executeScript() throws Exception {
         Thread.sleep(5000);
-        driver.findElement(By.name("Add New Expense")).click();
+        driver.findElement(By.id("com.expensemanager:id/addNewExpenseButton")).click();
         //driver.findElement(By.xpath("//android.widget.Button[@resource-id='com.expensemanager:id/addNewExpense']")).click();
         Thread.sleep(3000);
         driver.findElement(By.xpath("//android.widget.EditText[@resource-id='com.expensemanager:id/expenseAmountInput']")).sendKeys("80");
-//        Thread.sleep(2000);
+       Thread.sleep(5000);
 //DS
 //        driver.findElement(By.xpath("//android.widget.EditText[@resource-id='com.expensemanager:id/payee']")).sendKeys("BOFA");
 //        driver.findElement(By.xpath("//android.widget.ImageButton[@resource-id='com.expensemanager:id/editCategory']")).click();

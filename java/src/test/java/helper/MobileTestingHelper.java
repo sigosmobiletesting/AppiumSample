@@ -21,10 +21,10 @@ import java.security.cert.X509Certificate;
  */
 public class MobileTestingHelper {
 
-    String accessServerUrl = "http://access.sigos.net:6232/resource/";
-    String userName = "user@user.com";
-    String password = "password";
-    int mcd = 25060;
+    String accessServerUrl = "http://lmaccess11qasm.qa.sigos.net:6232/resource/";
+    String userName = "admin@deviceanywhere.com";
+    String password = "Harmony1";
+    int mcd = 32007;
     int muserId = -1;
 
     String jsonType = "application/json";

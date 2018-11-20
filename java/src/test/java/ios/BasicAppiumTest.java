@@ -31,7 +31,7 @@ public class BasicAppiumTest {
         System.out.println("Starting ios Driver");
 
         //Mobile testing Url (change this url from start Appium from DA Studio or web studio
-        appiumURL = "http://dellswmte.deviceanywhere.com/appium/6c837049-e07b-4d9e-afa5-2e7fe0f890e8/wd/hub/";
+        appiumURL = "http://10.120.100.76:80/da/ensemble/device/FsBDWtpnaiWRI7ujtzghzg/appium/wd/hub/";
         //appiumURL = "http://172.20.122.69:4723/wd/hub/";//"http://SFO-AMP-TCV-009.deviceanywhere.com:80/da/ensemble/device/um4dW1x6rd3XGMyNhfUzYQ/appium/wd/hub/";
 
 
@@ -46,11 +46,13 @@ public class BasicAppiumTest {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         //deviceName - MUST
-        capabilities.setCapability("deviceName","Apple iPhone 6");
+        capabilities.setCapability("deviceName","Apple iPhone 7");
         //platformVersion - MUST
-        capabilities.setCapability("platformVersion", "10.2.1");
+        capabilities.setCapability("platformVersion", "12.0.1");
         //platformName - MUST
         capabilities.setCapability("platformName", "ios");
+
+        capabilities.setCapability("usePrebuiltWDA", true);
 
         //udid - optional
        // capabilities.setCapability(MobileCapabilityType.UDID, "a451b5e57d3510b45ef15ad710fa4f0245a22cd0");
@@ -63,7 +65,7 @@ public class BasicAppiumTest {
         //if app is provided this should be (path to local machine script is running or any public URL of the app (should end with .ipa)
         //App need to be developer signed
         //In Mobile testing environment always application is installed from our app upload tool (DA Studio or Web Studio or REST API
-        capabilities.setCapability("bundleId", "com.secureworks.mobile.mobileportal.pilot");
+        capabilities.setCapability("bundleId", "com.kone.KitchenSink");
 
         //Intialize the driver, try to connect to the server (appium URL mentioned server)
         //New appium session will be intialized (this will create Apium session) MobileTesting session will be issued when appium URL is generated itself)
