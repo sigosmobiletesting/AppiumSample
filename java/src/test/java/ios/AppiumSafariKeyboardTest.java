@@ -2,28 +2,18 @@ package ios;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSTouchAction;
-import io.appium.java_client.touch.TapOptions;
-import io.appium.java_client.touch.offset.ElementOption;
+import io.appium.java_client.remote.HideKeyboardStrategy;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.internal.Locatable;
-import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -34,7 +24,7 @@ import static org.junit.Assert.assertTrue;
  * Basic appium test to connect with manually inject the appium URL
  * Direct appium Url or appium manual URL started from mobile testing
  */
-public class AppiumSafariTest {
+public class AppiumSafariKeyboardTest {
 
     String appiumURL = null;
     private AppiumDriver driver;
@@ -51,7 +41,7 @@ public class AppiumSafariTest {
         //appiumURL = "http://172.20.122.28:6232/resource/device/appium/wd/hub/session";
        // appiumURL = "http://10.120.100.76:80/da/ensemble/device/VxUBxBLUeJh5TaUqji0jeQ/appium/wd/hub/";
 
-        appiumURL = "http://172.20.118.86:8080/wd/hub/";
+        appiumURL = "http://10.120.100.79:80/da/ensemble/device/6uVrsZOWZWf1h3gNVDraTg/appium/wd/hub/";
 
         startDriver(appiumURL);
 
@@ -66,7 +56,7 @@ public class AppiumSafariTest {
         //deviceName - MUST
         capabilities.setCapability("deviceName", "iPad");
         //platformVersion - MUST
-        capabilities.setCapability("platformVersion", "12.0");
+        capabilities.setCapability("platformVersion", "11.4.1");
         //platformName - MUST
         capabilities.setCapability("platformName", "ios");
 
@@ -78,8 +68,8 @@ public class AppiumSafariTest {
 
 
         //udid - optional
-        capabilities.setCapability("udid", "d2ca6bb2e74d8d6c164a9a5e76d3a3be711885ee");
-        capabilities.setCapability("webDriverAgentUrl", "http://10.120.102.88:8100");
+       // capabilities.setCapability("udid", "d2ca6bb2e74d8d6c164a9a5e76d3a3be711885ee");
+       // capabilities.setCapability("webDriverAgentUrl", "http://10.120.102.88:8100");
         capabilities.setCapability("usePrebuiltWDA", true);
         capabilities.setCapability("startIWDP", true);
 
@@ -104,10 +94,10 @@ public class AppiumSafariTest {
         //driver.findElement(By.name("Add New Expense")).click();
         driver.get("https://05-daq.str.progressivedirect.com/Slot1/dq/ApplicationStart.aspx?captureErrorLogs=&offering=CO&Product=AU&classType=&enableBlockerVisibility=&disableCache=&debug=&disableBundlingAndMinification=&enableThreadLockLogging=&enableInFlightTesting=&enablePacketErrorsDisplay=&enableDeviceId=&isMoveOutOfState=N&equityTransferAmount=&equityTransferDate=&moveOutOfStatePolicyNbr=&enableHVDFBrokerUseDoc=&Stubbing=&zipCode=80020&residency=&HQXSupportedBrowser=Y&ServiceOverrides=MobileDetect%3dMobileDetectForceAndroid%26QuoteAbandonment%3dNormal+Quote&ABTestOverrides=%26chat_in_quote_abtest%3d0505A%26cov_pkg_use_spss_abtest_model5%3d1992B");
 
-        Thread.sleep(7000);
+        Thread.sleep(3000);
 
         Set<String> contextNames = driver.getContextHandles();
-        for (String contextname : contextNames) {
+        for(String contextname: contextNames){
             System.out.println(contextname);
         }
 
@@ -116,44 +106,108 @@ public class AppiumSafariTest {
         Thread.sleep(5000);
 
         WebElement elementFN = driver.findElementById("NameAndAddressEdit_embedded_questions_list_FirstName");
-        WebElement elementLN = driver.findElementById("NameAndAddressEdit_embedded_questions_list_LastName");
-        WebElement elementNext = driver.findElementById("next");
-
-
-        //elementFN.click();
-
-        tapOnElement(elementFN);
-
-        setContextToNative();
-        driver.findElement(By.xpath("//XCUIElementTypeKey[@name='A']")).click();
-
-       // driver.getKeyboard().pressKey("A");
-        //driver.getKeyboard().releaseKey("A");
-        setContextToWebview();
+        elementFN.click();
+        sendKeyToApp(elementFN, "abcd");
 
         Thread.sleep(3000);
+
         //elementFN.sendKeys("A1");
-        //elementLN.click();
 
-        tapOnElement(elementLN);
+        WebElement elementLN =   driver.findElementById("NameAndAddressEdit_embedded_questions_list_LastName");
+
+        elementLN.click();
+        sendKeyToApp(elementLN, "efgh");
+
+        WebElement elementDOB =   driver.findElementById("NameAndAddressEdit_embedded_questions_list_DateOfBirth");
+
+        elementDOB.click();
+        sendNUmberKeyToApp(elementDOB, "06/15/1999");
+
+        WebElement elementMA =   driver.findElementById("NameAndAddressEdit_embedded_questions_list_MailingAddress");
+
+        elementMA.click();
+        sendKeyToApp(elementMA, "333 New York road");
+
+        WebElement elementCity =   driver.findElementById("NameAndAddressEdit_embedded_questions_list_City");
+
+        elementCity.click();
+        sendKeyToAppSpecial(elementCity, "Broomfieldd");
+
+        //driver.performTouchAction(touchAction.tap(PointOption.point(elementLN.getLocation().getX(), elementLN.getLocation().getX())));
+
         Thread.sleep(3000);
-        setContextToNative();
+
+        //elementLN.sendKeys("Test");
 
         Thread.sleep(3000);
+        driver.findElementById("next").click();
 
-        driver.hideKeyboard();
-
-        tapOnElement(elementNext);
-
-        setContextToWebview();
-
+        Thread.sleep(3000);
 
         Thread.sleep(30000);
 
-        driver.navigate().back();
-
         assertTrue(true);
     }
+
+    private void sendKeyToAppSpecial(WebElement element, String input) {
+
+        tapOnElement(element);
+
+        if(input != null && input.length() > 0) {
+
+            element.sendKeys( input.substring(0, input.toCharArray().length - 1));
+
+            tapOnElement(element);
+
+            setContextToNative();
+
+            try {
+                if(input.length() > 1) {
+                    driver.findElement(By.xpath("//XCUIElementTypeKey[@name='" + input.toCharArray()[input.toCharArray().length - 1] + "']")).click();
+                }
+            }
+            catch (Exception e) {}
+
+        }
+        setContextToWebview();
+    }
+
+    private void sendKeyToApp(WebElement element, String input) {
+
+        tapOnElement(element);
+
+        if(input != null && input.length() > 0) {
+
+            element.sendKeys( input.substring(0, input.toCharArray().length - 1));
+
+            setContextToNative();
+
+            try {
+                if(input.length() > 1) {
+                    driver.findElement(By.xpath("//XCUIElementTypeKey[@name='" + input.toCharArray()[input.toCharArray().length - 1] + "']")).click();
+                }
+            }
+            catch (Exception e) {}
+
+        }
+        setContextToWebview();
+    }
+
+    private void sendNUmberKeyToApp(WebElement element, String input) {
+
+        tapOnElement(element);
+        setContextToNative();
+
+        driver.findElement(By.xpath("//XCUIElementTypeKey[@name='1']")).click();
+        driver.findElement(By.xpath("//XCUIElementTypeKey[@name='Delete']")).click();
+
+        setContextToWebview();
+
+        element.sendKeys(input);
+    }
+
+
+
 
     public float[] getElementCenter(WebElement element) {
         setContextToWebview();
